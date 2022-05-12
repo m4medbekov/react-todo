@@ -2,15 +2,22 @@ import React, { useState, useEffect } from "react";
 import AddItem from "./Components/AddItem";
 import TodoList from "./Components/TodoList";
 import Context from "./context";
+import Loader from "./Components/Loader";
 
 function App() {
 
-  let [arrayOfTodoItems, setArrayOfTodoItems] = useState([])
+  const [arrayOfTodoItems, setArrayOfTodoItems] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
       .then(response => response.json())
-      .then(arrayOfTodoItems => setArrayOfTodoItems(arrayOfTodoItems))
+      .then(arrayOfTodoItems => {
+        setTimeout(() => {
+          setArrayOfTodoItems(arrayOfTodoItems)
+          setLoading(false)
+        }, 2000)
+      })
   }, [])
 
   function onToggle(id) {
@@ -45,11 +52,11 @@ function App() {
       <div className="wrapper">
         <h1>Задачи на день</h1>
         <AddItem onCreate={addItem} />
-
+        {loading && <Loader />}
         {arrayOfTodoItems.length ? (
           <TodoList arrayOfTodoItems={arrayOfTodoItems} onToggle={onToggle} />
         ) : (
-          <p>Нет задач</p>
+          loading ? null : <p>Нет задач</p>
         )}
       </div>
     </Context.Provider>
