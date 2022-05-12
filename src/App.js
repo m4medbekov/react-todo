@@ -30,7 +30,11 @@ function App() {
       <div className="wrapper">
         <h1>React tutorial</h1>
 
-        <TodoList arrayOfTodoItems={arrayOfTodoItems} onToggle={onToggle} />
+        {arrayOfTodoItems.length ? (
+          <TodoList arrayOfTodoItems={arrayOfTodoItems} onToggle={onToggle} />
+        ) : (
+          <p>Нет задач</p>
+        )}
       </div>
     </Context.Provider>
   );
