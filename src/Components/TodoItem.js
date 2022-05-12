@@ -17,11 +17,21 @@ const sytles = {
 }
 
 function TodoItem({item, index, onChange}) {
-    console.log('item', item)
+    const classes = []
+
+    if (item.completed === true) {
+        classes.push('done')
+    }
+
     return (
         <li style={sytles.li}>
-            <span>
-                <input type='checkbox' style={sytles.input} onChange={() => onChange(item.id)} />
+            <span className={classes.join(' ')}>
+                <input 
+                    type='checkbox' 
+                    style={sytles.input} 
+                    onChange={() => onChange(item.id)}
+                    checked={item.completed} 
+                />
                 <strong>{index + 1}</strong>
                 &nbsp;
                 {item.title}
