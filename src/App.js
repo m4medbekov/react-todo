@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AddItem from "./Components/AddItem";
 import TodoList from "./Components/TodoList";
 import Context from "./context";
 
@@ -25,10 +26,23 @@ function App() {
     setArrayOfTodoItems(arrayOfTodoItems.filter(item => item.id !== id))
   } 
 
+  function addItem(title) {
+    setArrayOfTodoItems(
+      arrayOfTodoItems.concat([
+        {
+          title,
+          id: Date.now(),
+          completed: false
+        }
+      ])
+    )
+  }
+
   return (
     <Context.Provider value={{ removeItem }}>
       <div className="wrapper">
-        <h1>React tutorial</h1>
+        <h1>Задачи на день</h1>
+        <AddItem onCreate={addItem} />
 
         {arrayOfTodoItems.length ? (
           <TodoList arrayOfTodoItems={arrayOfTodoItems} onToggle={onToggle} />

@@ -25,6 +25,10 @@ code {
   border: none;
 }
 
+.removeBtn:hover {
+  cursor: pointer;
+}
+
 .done {
   text-decoration: line-through;
 }
