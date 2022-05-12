@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
-import AddItem from "./Components/AddItem";
+import React, { useState, useEffect, lazy } from "react";
 import TodoList from "./Components/TodoList";
 import Context from "./context";
 import Loader from "./Components/Loader";
+
+const AddItem = lazy(() => new Promise(resolve => {
+  setTimeout(() => {
+    resolve(import('./Components/AddItem'))
+  }, 2000)
+}))
 
 function App() {
 
@@ -51,7 +56,11 @@ function App() {
     <Context.Provider value={{ removeItem }}>
       <div className="wrapper">
         <h1>Задачи на день</h1>
-        <AddItem onCreate={addItem} />
+        
+        <React.Suspense fallback={<p>Загрузка...</p>}>
+          <AddItem onCreate={addItem} />
+        </React.Suspense>
+
         {loading && <Loader />}
         {arrayOfTodoItems.length ? (
           <TodoList arrayOfTodoItems={arrayOfTodoItems} onToggle={onToggle} />
