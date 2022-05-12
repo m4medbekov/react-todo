@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import TodoItem from "./TodoItem";
 
 const styles = {
@@ -9,7 +10,7 @@ const styles = {
     }
 }
 
-export default function TodoList({arrayOfTodoItems}) {
+function TodoList({arrayOfTodoItems}) {
     return (
         <ul style={styles.ul}>
             {arrayOfTodoItems.map((item, index) => {
@@ -18,3 +19,9 @@ export default function TodoList({arrayOfTodoItems}) {
         </ul>
     )
 }
+
+TodoList.propTypes = {
+    arrayOfTodoItems: PropTypes.arrayOf(PropTypes.object).isRequired
+}
+
+export default TodoList
