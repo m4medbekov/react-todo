@@ -2,6 +2,7 @@ import React, { useState, useEffect, lazy } from "react";
 import TodoList from "./Components/TodoList";
 import Context from "./context";
 import Loader from "./Components/Loader";
+import Modal from "./Modal/Modal";
 
 const AddItem = lazy(() => new Promise(resolve => {
   setTimeout(() => {
@@ -56,6 +57,7 @@ function App() {
     <Context.Provider value={{ removeItem }}>
       <div className="wrapper">
         <h1>Задачи на день</h1>
+        <Modal />
         
         <React.Suspense fallback={<p>Загрузка...</p>}>
           <AddItem onCreate={addItem} />
