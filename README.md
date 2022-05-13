@@ -1,1 +1,1 @@
-# The project is under development, documentation will be later
+# Project documentation is under development
